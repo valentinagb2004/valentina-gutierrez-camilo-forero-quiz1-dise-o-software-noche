@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class VistaLoguin extends javax.swing.JFrame {
 
-    UsuarioController usuarioController = new UsuarioController();
+    private UsuarioController usuarioController = new UsuarioController();
     
     /**
      * Creates new form VistaLoguin
