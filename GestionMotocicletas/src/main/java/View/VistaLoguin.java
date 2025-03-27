@@ -4,12 +4,20 @@
  */
 package View;
 
+import Controller.UsuarioController;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ASUS
  */
 public class VistaLoguin extends javax.swing.JFrame {
 
+    UsuarioController usuarioController = new UsuarioController();
+    
     /**
      * Creates new form VistaLoguin
      */
@@ -52,6 +60,11 @@ public class VistaLoguin extends javax.swing.JFrame {
         });
 
         btnIniciar.setText("Iniciar");
+        btnIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,6 +127,28 @@ public class VistaLoguin extends javax.swing.JFrame {
     private void txtContrasena(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContrasena
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContrasena
+
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+        // TODO add your handling code here:
+        
+        String cedula = txtCedula.getText();
+        String contrasena = txtContraseña.getText();
+        
+        try {
+            boolean exito = usuarioController.isLogueado(cedula, contrasena);
+            if(exito){
+                VistaMotocicleta vista = new VistaMotocicleta();
+                vista.setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "las credenciales estan incorrectas");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(VistaLoguin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ocurrio un error sql");
+        }
+    }//GEN-LAST:event_btnIniciarActionPerformed
 
     /**
      * @param args the command line arguments
