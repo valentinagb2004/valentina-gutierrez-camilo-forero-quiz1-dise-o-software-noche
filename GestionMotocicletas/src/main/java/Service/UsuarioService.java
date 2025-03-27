@@ -4,10 +4,24 @@
  */
 package Service;
 
+import DTOs.UsuarioDTO;
+import Repository.UsuarioRepository;
+import java.sql.SQLException;
+
 /**
  *
  * @author valentina
  */
 public class UsuarioService {
+    
+    private UsuarioRepository usuarioRepository = new UsuarioRepository();  
+    
+    
+    public UsuarioDTO loguearse(String usuario, String contrasena) throws SQLException{
+        
+        UsuarioDTO usuarioDTO = usuarioRepository.login(usuario, contrasena);
+        return usuarioDTO;
+        
+    }
     
 }
