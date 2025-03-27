@@ -1,10 +1,10 @@
 Service\UsuarioService.class
 Repository\UsuarioRepository.class
-DTOs\MotocicletaDTO.class
-gestionmotocicletas\DataBaseConfig.class
-Service\MotocicletaService.class
 Controller\MotocicletaController.class
 Repository\MotocicletaRepository.class
 DTOs\UsuarioDTO.class
+DTOs\MotocicletaDTO.class
+gestionmotocicletas\DataBaseConfig.class
+Service\MotocicletaService.class
 gestionmotocicletas\GestionMotocicletas.class
 Controller\UsuarioController.class

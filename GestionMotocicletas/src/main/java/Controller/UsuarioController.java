@@ -16,13 +16,14 @@ public class UsuarioController {
     
     UsuarioService usuarioService = new UsuarioService();
     
-    public boolean isLogueado(String usuario, String contrasena) throws SQLException{
-        UsuarioDTO dto =usuarioService.loguearse(usuario, contrasena);
-        if(dto == null){
-            return false;
-        }
-        
-        return true;
+    public boolean isLogueado(String usuario, String contrasena){
+        boolean exito = usuarioService.loguearse(usuario, contrasena);
+        return exito;
+    }
+    
+    public boolean registrarUsuario(String username, String password) throws SQLException {
+        boolean exito = usuarioService.registrarUsuario(username, password);
+        return exito;
     }
     
 }
