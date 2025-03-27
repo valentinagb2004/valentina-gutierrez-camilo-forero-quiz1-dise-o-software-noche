@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class UsuarioController {
     
-    UsuarioService usuarioService = new UsuarioService();
+    private UsuarioService usuarioService = new UsuarioService();
     
     public boolean isLogueado(String usuario, String contrasena){
         boolean exito = usuarioService.loguearse(usuario, contrasena);

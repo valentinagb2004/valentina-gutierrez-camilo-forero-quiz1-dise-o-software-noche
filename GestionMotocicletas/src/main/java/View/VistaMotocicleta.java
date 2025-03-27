@@ -4,17 +4,54 @@
  */
 package View;
 
+import Controller.MotocicletaController;
+import DTOs.MotocicletaDTO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ASUS
  */
 public class VistaMotocicleta extends javax.swing.JFrame {
 
+    private MotocicletaController motocicletaController = new MotocicletaController();
+            
+    
     /**
      * Creates new form VistaMotocicleta
      */
     public VistaMotocicleta() {
         initComponents();
+        listarTabla();
+    }
+    
+    private void listarTabla(){
+       DefaultTableModel model = new DefaultTableModel();
+       model.setColumnIdentifiers(new Object[]{"Id", "Marca", "Cilindraje", "Precio", "Color"});
+       
+       ArrayList<MotocicletaDTO> lista;
+        try {
+            lista = motocicletaController.listarTodos();
+            for (int i = 0; i < lista.size(); i++) {
+                MotocicletaDTO dto = lista.get(i);
+                model.addRow(new Object[]{
+                    dto.getId(),
+                    dto.getMarca(),
+                    dto.getCilindraje(),
+                    dto.getPrecio(),
+                    dto.getColor()
+                });
+            }
+            tabla.setModel(model);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al cargar los datos");
+        }
+       
     }
 
     /**
@@ -27,63 +64,20 @@ public class VistaMotocicleta extends javax.swing.JFrame {
     private void initComponents() {
 
         textField1 = new java.awt.TextField();
-        txtMarca = new javax.swing.JLabel();
-        txtCilindraje = new javax.swing.JLabel();
-        txtPrecio = new javax.swing.JLabel();
-        txtColor = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
+        txtMarca = new javax.swing.JTextField();
+        txtCilindraje = new javax.swing.JTextField();
+        txtPrecio = new javax.swing.JTextField();
+        txtColor = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
 
         textField1.setText("textField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        txtMarca.setBorder(javax.swing.BorderFactory.createTitledBorder("Marca"));
-        txtMarca.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                txtMarca(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-
-        txtCilindraje.setBorder(javax.swing.BorderFactory.createTitledBorder("Cilindraje"));
-        txtCilindraje.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                txtCilindraje(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-
-        txtPrecio.setBorder(javax.swing.BorderFactory.createTitledBorder("Precio"));
-        txtPrecio.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                txtPrecio(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-
-        txtColor.setBorder(javax.swing.BorderFactory.createTitledBorder("Color"));
-        txtColor.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                txtColor(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -119,56 +113,61 @@ public class VistaMotocicleta extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabla);
 
+        txtMarca.setBorder(javax.swing.BorderFactory.createTitledBorder("Marca"));
+
+        txtCilindraje.setBorder(javax.swing.BorderFactory.createTitledBorder("Cilindraje"));
+
+        txtPrecio.setBorder(javax.swing.BorderFactory.createTitledBorder("Precio"));
+
+        txtColor.setBorder(javax.swing.BorderFactory.createTitledBorder("Color"));
+
+        txtId.setBorder(javax.swing.BorderFactory.createTitledBorder("ID"));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(25, 25, 25)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtCilindraje, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtMarca, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                        .addComponent(txtCilindraje, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtPrecio)
+                        .addComponent(txtColor))
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(txtCilindraje, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnGuardar)
-                            .addComponent(btnEditar))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
+                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCilindraje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addComponent(btnGuardar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))))
         );
 
         pack();
@@ -176,66 +175,89 @@ public class VistaMotocicleta extends javax.swing.JFrame {
 
     private void btnGuardar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardar
         // TODO add your handling code here:
+        
+        String marca = txtMarca.getText();
+        String cilin = txtCilindraje.getText();
+        String preci = txtPrecio.getText();
+        String color = txtColor.getText();
+        
+        try {
+            
+            int cilindraje = Integer.parseInt(cilin);
+            double precio = Double.parseDouble(preci);
+            MotocicletaDTO dto = new MotocicletaDTO(0, marca, cilindraje, precio, color);
+            
+            boolean exito = motocicletaController.registrarMotocicleta(dto);
+            if(exito){
+                JOptionPane.showMessageDialog(null, "se registro exitosamente");
+                listarTabla();
+            }else{
+                JOptionPane.showMessageDialog(null, "hubo un error, la motocicleta no se pudo registrar");
+            }
+        }
+        catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "ingrese los numeros correctamente");
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(VistaLoguin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ocurrio un error sql");
+        }
     }//GEN-LAST:event_btnGuardar
 
     private void btnEditar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditar
         // TODO add your handling code here:
+        String marca = txtMarca.getText();
+        String cilin = txtCilindraje.getText();
+        String preci = txtPrecio.getText();
+        String color = txtColor.getText();
+        String id = txtId.getText();
+        
+        try {
+            
+            int idEditar =  Integer.parseInt(id);
+            int cilindraje = Integer.parseInt(cilin);
+            double precio = Double.parseDouble(preci);
+            MotocicletaDTO dto = new MotocicletaDTO(idEditar, marca, cilindraje, precio, color);
+            
+            boolean exito = motocicletaController.actualizarMotocicleta(dto);
+            if(exito){
+                JOptionPane.showMessageDialog(null, "se actualizo exitosamente");
+                listarTabla();
+            }else{
+                JOptionPane.showMessageDialog(null, "hubo un error, la motocicleta no se pudo editar");
+            }
+        }
+        catch(NumberFormatException ex){
+            JOptionPane.showMessageDialog(null, "ingrese los numeros correctamente");
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(VistaLoguin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ocurrio un error sql");
+        }
     }//GEN-LAST:event_btnEditar
 
     private void btnElimiar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElimiar
         // TODO add your handling code here:
+        
+        String id = txtId.getText();
+        
+        try {
+            int idEliminar = Integer.parseInt(id);
+            boolean exito = motocicletaController.eliminarMotocicleta(idEliminar);
+            if(exito){
+                JOptionPane.showMessageDialog(null, "se elimino exitosamente");
+                listarTabla();
+            }else{
+                JOptionPane.showMessageDialog(null, "hubo un error, la motocicleta no se pudo eliminar");
+            }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(VistaLoguin.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ocurrio un error sql");
+        }
     }//GEN-LAST:event_btnElimiar
 
-    private void txtMarca(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_txtMarca
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMarca
-
-    private void txtCilindraje(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_txtCilindraje
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCilindraje
-
-    private void txtPrecio(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_txtPrecio
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrecio
-
-    private void txtColor(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_txtColor
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtColor
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VistaMotocicleta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VistaMotocicleta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VistaMotocicleta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VistaMotocicleta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VistaMotocicleta().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
@@ -244,9 +266,10 @@ public class VistaMotocicleta extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
     private java.awt.TextField textField1;
-    private javax.swing.JLabel txtCilindraje;
-    private javax.swing.JLabel txtColor;
-    private javax.swing.JLabel txtMarca;
-    private javax.swing.JLabel txtPrecio;
+    private javax.swing.JTextField txtCilindraje;
+    private javax.swing.JTextField txtColor;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }
