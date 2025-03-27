@@ -17,11 +17,15 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository = new UsuarioRepository();  
     
     
-    public UsuarioDTO loguearse(String usuario, String contrasena) throws SQLException{
+    public boolean loguearse(String usuario, String contrasena){
+        boolean exito  = usuarioRepository.login(usuario, contrasena);
+        return exito;
+    }
+    
+    public boolean registrarUsuario(String username, String password) throws SQLException {
         
-        UsuarioDTO usuarioDTO = usuarioRepository.login(usuario, contrasena);
-        return usuarioDTO;
-        
+        boolean exito = usuarioRepository.registrarUsuario(username, password);
+        return exito;
     }
     
 }
